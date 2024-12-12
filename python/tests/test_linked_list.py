@@ -18,7 +18,13 @@ def test_linked_list_initialization():
 # Test LinkedList print_list
 def test_print_list(capsys):
     # Create a LinkedList with initial value
-    linked_list = LinkedList(10) # TODO add more elements to print_list test when append is implemented
+    linked_list = LinkedList(10)
+
+    # Append a new value
+    linked_list.append(20)
+
+    # Append another value
+    linked_list.append(30)
 
     # Call print_list method to print the linked list values
     linked_list.print_list()
@@ -27,4 +33,30 @@ def test_print_list(capsys):
     captured = capsys.readouterr()
 
     # Expected output is "10\n" since the list has only one node with value 10
-    assert captured.out == "10\n"
+    assert captured.out == "10\n20\n30\n"
+
+# Test Linked List append
+# TODO modify test for case on empty list when pop method is available
+def test_append():
+    # Create a LinkedList with initial value
+    linked_list = LinkedList(10)
+
+    # Append a new value
+    linked_list.append(20)
+
+    # Check that the tail's value is updated correctly
+    assert linked_list.tail.value == 20
+
+    # Check that the list length is updated correctly
+    assert linked_list.length == 2
+
+    # Check that the appended node is linked correctly
+    assert linked_list.head.next.value == 20
+
+    # Append another value
+    linked_list.append(30)
+
+    # Check tail and length after the second append
+    assert linked_list.tail.value == 30
+    assert linked_list.length == 3
+    assert linked_list.head.next.next.value == 30
