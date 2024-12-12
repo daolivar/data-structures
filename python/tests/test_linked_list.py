@@ -14,3 +14,17 @@ def test_linked_list_initialization():
 
     # Check that length is correctly set
     assert linked_list.length == 1
+
+# Test LinkedList print_list
+def test_print_list(capsys):
+    # Create a LinkedList with initial value
+    linked_list = LinkedList(10) # TODO add more elements to print_list test when append is implemented
+
+    # Call print_list method to print the linked list values
+    linked_list.print_list()
+
+    # Capture the output
+    captured = capsys.readouterr()
+
+    # Expected output is "10\n" since the list has only one node with value 10
+    assert captured.out == "10\n"
