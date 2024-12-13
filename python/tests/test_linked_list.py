@@ -36,7 +36,6 @@ def test_print_list(capsys):
     assert captured.out == "10\n20\n30\n"
 
 # Test Linked List append
-# TODO modify test for case on empty list when pop method is available
 def test_append():
     # Create a LinkedList with initial value
     linked_list = LinkedList(10)
@@ -60,3 +59,66 @@ def test_append():
     assert linked_list.tail.value == 30
     assert linked_list.length == 3
     assert linked_list.head.next.next.value == 30
+
+    # Use pop method to make the list empty
+    linked_list.pop()  # Pops 30
+    linked_list.pop()  # Pops 20
+    linked_list.pop()  # Pops 10 (list is now empty)
+
+    # Append a value to the empty list
+    linked_list.append(40)
+
+    # Check that the head and tail point to the same node
+    assert linked_list.head.value == 40
+    assert linked_list.tail.value == 40
+
+    # Check that the list length is updated to 1
+    assert linked_list.length == 1
+
+    # Append another value to the previously empty list
+    linked_list.append(50)
+
+    # Verify the append after the list was empty
+    assert linked_list.tail.value == 50
+    assert linked_list.length == 2
+    assert linked_list.head.next.value == 50
+
+# Test Linked List pop
+def test_pop():
+    # Case 1: Popping from an empty list
+    empty_list = LinkedList(10)
+    empty_list.pop()  # Removes the only element
+    assert empty_list.pop() is None  # Should return None, as list is now empty
+
+    # Case 2: Popping from a single-node list
+    single_node_list = LinkedList(10)
+    popped_node = single_node_list.pop()
+    assert popped_node.value == 10
+    assert single_node_list.head is None
+    assert single_node_list.tail is None
+    assert single_node_list.length == 0
+
+    # Case 3: Popping from a multi-node list
+    multi_node_list = LinkedList(10)
+    multi_node_list.append(20)
+    multi_node_list.append(30)
+
+    # Pop the last node (30)
+    popped_node = multi_node_list.pop()
+    assert popped_node.value == 30
+    assert multi_node_list.tail.value == 20  # Tail should be updated to 20
+    assert multi_node_list.length == 2       # Length should be updated to 2
+
+    # Pop another node (20)
+    popped_node = multi_node_list.pop()
+    assert popped_node.value == 20
+    assert multi_node_list.tail.value == 10  # Tail should now be 10
+    assert multi_node_list.length == 1       # Length should be 1
+
+    # Finally, pop the last node (10)
+    popped_node = multi_node_list.pop()
+    assert popped_node.value == 10
+    assert multi_node_list.head is None
+    assert multi_node_list.tail is None
+    assert multi_node_list.length == 0
+
