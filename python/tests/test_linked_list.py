@@ -154,3 +154,49 @@ def test_prepend():
     assert linked_list.head.value == 1
     assert linked_list.head.next.value == 3
     assert linked_list.length == 3
+
+# Test Linked List pop_first
+def test_pop_first():
+    # Case 1: Pop from an empty list
+    linked_list = LinkedList(10)
+    linked_list.pop()  # Make the list empty
+
+    # Popping from an empty list should return None
+    assert linked_list.pop_first() is None
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+
+    # Case 2: Pop from a list with a single element
+    linked_list.append(1)  # Add one element to the list
+
+    # Popping the only element should return the node and make the list empty
+    popped_node = linked_list.pop_first()
+    assert popped_node.value == 1
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+
+    # Case 3: Pop from a list with multiple elements
+    linked_list.append(1)
+    linked_list.append(2)
+    linked_list.append(3)
+
+    # Popping the first element
+    popped_node = linked_list.pop_first()
+    assert popped_node.value == 1
+    assert linked_list.head.value == 2  # Head should now be the second node
+    assert linked_list.length == 2
+
+    # Pop another element (which was the second)
+    popped_node = linked_list.pop_first()
+    assert popped_node.value == 2
+    assert linked_list.head.value == 3  # Head should now be the third node
+    assert linked_list.length == 1
+
+    # Pop the last element
+    popped_node = linked_list.pop_first()
+    assert popped_node.value == 3
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
