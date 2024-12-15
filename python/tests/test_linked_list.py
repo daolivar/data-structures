@@ -40,8 +40,8 @@ def test_append():
     # Create a LinkedList with initial value
     linked_list = LinkedList(10)
 
-    # Append a new value
-    linked_list.append(20)
+    # Append a new value and check the return value
+    assert linked_list.append(20) is True
 
     # Check that the tail's value is updated correctly
     assert linked_list.tail.value == 20
@@ -52,8 +52,8 @@ def test_append():
     # Check that the appended node is linked correctly
     assert linked_list.head.next.value == 20
 
-    # Append another value
-    linked_list.append(30)
+    # Append another value and check the return value
+    assert linked_list.append(30) is True
 
     # Check tail and length after the second append
     assert linked_list.tail.value == 30
@@ -65,8 +65,8 @@ def test_append():
     linked_list.pop()  # Pops 20
     linked_list.pop()  # Pops 10 (list is now empty)
 
-    # Append a value to the empty list
-    linked_list.append(40)
+    # Append a value to the empty list and check the return value
+    assert linked_list.append(40) is True
 
     # Check that the head and tail point to the same node
     assert linked_list.head.value == 40
@@ -75,13 +75,14 @@ def test_append():
     # Check that the list length is updated to 1
     assert linked_list.length == 1
 
-    # Append another value to the previously empty list
-    linked_list.append(50)
+    # Append another value to the previously empty list and check the return value
+    assert linked_list.append(50) is True
 
     # Verify the append after the list was empty
     assert linked_list.tail.value == 50
     assert linked_list.length == 2
     assert linked_list.head.next.value == 50
+
 
 # Test Linked List pop
 def test_pop():
@@ -122,3 +123,34 @@ def test_pop():
     assert multi_node_list.tail is None
     assert multi_node_list.length == 0
 
+# Test Linked List prepend
+def test_prepend():
+    # Case 1: Prepend to an empty list
+    linked_list = LinkedList(10)
+    linked_list.pop()  # Now the list is empty
+
+    # Prepend a value to the empty list and check the return value
+    assert linked_list.prepend(5) is True
+
+    # Check if head and tail both point to the new node
+    assert linked_list.head.value == 5
+    assert linked_list.tail.value == 5
+    assert linked_list.length == 1
+
+    # Case 2: Prepend to a non-empty list
+    assert linked_list.prepend(3) is True  # Check the return value
+
+    # Check if head is updated and points to the new node
+    assert linked_list.head.value == 3
+    assert linked_list.length == 2
+
+    # Check if the new head's next node is the previous head
+    assert linked_list.head.next.value == 5
+
+    # Prepend another value and check the return value
+    assert linked_list.prepend(1) is True
+
+    # Verify the new head and the next pointers
+    assert linked_list.head.value == 1
+    assert linked_list.head.next.value == 3
+    assert linked_list.length == 3
