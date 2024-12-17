@@ -272,3 +272,41 @@ def test_set_value():
 
     # Case 4: Negative index
     assert linked_list.set_value(-1, 100) is False  # Negative index should return False
+
+# Test Linked List insert
+def test_insert():
+    # Case 1: Insert into an empty list (should behave like prepend)
+    linked_list = LinkedList(10)
+    linked_list.pop()  # Make the list empty
+
+    assert linked_list.insert(0, 5) is True
+    assert linked_list.head.value == 5
+    assert linked_list.tail.value == 5
+    assert linked_list.length == 1
+
+    # Case 2: Insert at the head (index 0)
+    linked_list.insert(0, 1)  # Insert 1 at the head
+    assert linked_list.head.value == 1
+    assert linked_list.head.next.value == 5
+    assert linked_list.length == 2
+
+    # Case 3: Insert at the tail (index == length)
+    linked_list.insert(2, 15)  # Insert 15 at the tail
+    assert linked_list.tail.value == 15
+    assert linked_list.length == 3
+
+    # Case 4: Insert in the middle (index 1)
+    linked_list.insert(1, 7)  # Insert 7 at index 1
+    assert linked_list.get(1).value == 7
+    assert linked_list.length == 4
+    assert linked_list.get(1).value == 7
+    assert linked_list.get(2).value == 5
+
+    # Case 5: Insert at invalid index (out of bounds)
+    assert linked_list.insert(5, 20) is False  # Index is out of bounds
+    assert linked_list.length == 4  # Length should remain unchanged
+
+    # Case 6: Insert at negative index (invalid)
+    assert linked_list.insert(-1, 100) is False  # Negative index should return False
+    assert linked_list.length == 4  # Length should remain unchanged
+
