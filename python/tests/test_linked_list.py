@@ -240,3 +240,35 @@ def test_get():
     # Case 4: Index out of bounds
     assert linked_list.get(-1) is None  # Negative index
     assert linked_list.get(3) is None   # Index greater than length - 1
+
+# Test Linked List set_value
+def test_set_value():
+    # Case 1: Set value on an empty list
+    linked_list = LinkedList(10)
+    linked_list.pop()  # Now the list is empty
+
+    # Trying to set a value on an empty list should return False
+    assert linked_list.set_value(0, 100) is False
+
+    # Case 2: Set value on a valid index
+    linked_list.append(10)
+    linked_list.append(20)
+    linked_list.append(30)
+
+    # Set value at index 1 (should change 20 to 25)
+    assert linked_list.set_value(1, 25) is True
+    assert linked_list.get(1).value == 25  # Verify the value was updated
+
+    # Set value at index 0 (should change 10 to 15)
+    assert linked_list.set_value(0, 15) is True
+    assert linked_list.get(0).value == 15  # Verify the value was updated
+
+    # Set value at index 2 (should change 30 to 35)
+    assert linked_list.set_value(2, 35) is True
+    assert linked_list.get(2).value == 35  # Verify the value was updated
+
+    # Case 3: Set value with an invalid index
+    assert linked_list.set_value(3, 40) is False  # Index 3 is out of bounds
+
+    # Case 4: Negative index
+    assert linked_list.set_value(-1, 100) is False  # Negative index should return False
