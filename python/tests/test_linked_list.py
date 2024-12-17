@@ -352,4 +352,53 @@ def test_remove():
     assert linked_list.tail is None
     assert linked_list.length == 0
 
+# Test Linked List reverse
+def test_reverse():
+    # Test Case 1: Reverse an empty list
+    linked_list = LinkedList(10)
+    linked_list.pop()
+    linked_list.reverse()
+    # The list should still be empty
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
 
+    # Test Case 2: Reverse a single element list
+    linked_list = LinkedList(10)
+    linked_list.reverse()
+    # The head and tail should remain the same
+    assert linked_list.head.value == 10
+    assert linked_list.tail.value == 10
+    assert linked_list.length == 1
+
+    # Test Case 3: Reverse a list with multiple elements
+    linked_list = LinkedList(10)
+    linked_list.append(20)
+    linked_list.append(30)
+    linked_list.reverse()
+    # After reversing, the list should be 30 -> 20 -> 10
+    assert linked_list.head.value == 30
+    assert linked_list.tail.value == 10
+    assert linked_list.length == 3
+    assert linked_list.head.next.value == 20
+    assert linked_list.head.next.next.value == 10
+    assert linked_list.tail.next is None
+
+    # Test Case 4: Reverse a list after popping elements
+    linked_list.pop()  # Pops 10
+    linked_list.reverse()
+    # The list should now be 20 -> 30
+    assert linked_list.head.value == 20
+    assert linked_list.tail.value == 30
+    assert linked_list.length == 2
+    assert linked_list.head.next.value == 30
+    assert linked_list.tail.next is None
+
+    # Test Case 5: Reverse a list after prepending elemenr
+    linked_list.prepend(10) # The list should now be 10 -> 20 -> 30
+    linked_list.reverse()  # Reversing it back should return to 30-> 20 -> 10
+    assert linked_list.head.value == 30
+    assert linked_list.tail.value == 10
+    assert linked_list.length == 3
+    assert linked_list.head.next.value == 20
+    assert linked_list.tail.next is None
