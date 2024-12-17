@@ -310,3 +310,46 @@ def test_insert():
     assert linked_list.insert(-1, 100) is False  # Negative index should return False
     assert linked_list.length == 4  # Length should remain unchanged
 
+# Test Linked List remove
+def test_remove():
+    # Create a LinkedList with multiple values
+    linked_list = LinkedList(10)
+    linked_list.append(20)
+    linked_list.append(30)
+    linked_list.append(40)
+
+    # Case 1: Remove from the head (index 0)
+    removed = linked_list.remove(0)
+    assert removed.value == 10  # Check if the correct node was removed
+    assert linked_list.head.value == 20  # Verify the head has been updated
+    assert linked_list.length == 3  # Length should be reduced by 1
+
+    # Case 2: Remove from the tail (last index)
+    removed = linked_list.remove(2)  # Index 2 is the last element (40)
+    assert removed.value == 40
+    assert linked_list.tail.value == 30  # Tail should now be 30
+    assert linked_list.length == 2  # Length should be reduced by 1
+
+    # Case 3: Remove from the middle
+    linked_list.append(50)  # Add a value to make the list [20, 30, 50]
+    removed = linked_list.remove(1)  # Remove the element at index 1 (30)
+    assert removed.value == 30
+    assert linked_list.head.next.value == 50  # 20 -> 50 after removal
+    assert linked_list.length == 2  # Length should be reduced by 1
+
+    # Case 4: Remove at an invalid index (out of bounds)
+    assert linked_list.remove(5) is None  # No node should be removed
+    assert linked_list.length == 2  # Length should remain unchanged
+
+    # Case 5: Negative index (invalid)
+    assert linked_list.remove(-1) is None  # Negative index should return None
+    assert linked_list.length == 2  # Length should remain unchanged
+
+    # Case 6: Remove the last remaining elements
+    linked_list.remove(0)  # Removes 20
+    linked_list.remove(0)  # Removes 50 (list becomes empty)
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+
+
