@@ -200,3 +200,43 @@ def test_pop_first():
     assert linked_list.head is None
     assert linked_list.tail is None
     assert linked_list.length == 0
+
+# Test Linked List get
+def test_get():
+    # Case 1: Get from an empty list
+    linked_list = LinkedList(10)
+    linked_list.pop()  # Make the list empty
+
+    # Trying to get from an empty list should return None
+    assert linked_list.get(0) is None
+
+    # Case 2: Get from a list with a single element
+    linked_list.append(1)
+
+    # Getting the first element should return the node with value 1
+    node = linked_list.get(0)
+    assert node is not None
+    assert node.value == 1
+
+    # Case 3: Get from a list with multiple elements
+    linked_list.append(2)
+    linked_list.append(3)
+
+    # Get the first element
+    node = linked_list.get(0)
+    assert node is not None
+    assert node.value == 1
+
+    # Get the second element
+    node = linked_list.get(1)
+    assert node is not None
+    assert node.value == 2
+
+    # Get the third element
+    node = linked_list.get(2)
+    assert node is not None
+    assert node.value == 3
+
+    # Case 4: Index out of bounds
+    assert linked_list.get(-1) is None  # Negative index
+    assert linked_list.get(3) is None   # Index greater than length - 1
