@@ -70,6 +70,7 @@ def test_append():
     assert dll.tail.prev.value == 2  # Tail's prev should be the second node
     assert dll.length == 3  # Length should be 3
 
+# Test DoublyLinkedList append
 def test_append_and_pop():
     # Initialize empty doubly linked list
     dll = DoublyLinkedList(10)
@@ -104,4 +105,29 @@ def test_append_and_pop():
     popped_node = dll.pop()
     assert popped_node is None  # Should return None on empty list
 
+# Test DoublyLinkedList prepend
+def test_doubly_linked_list_prepend():
+    # Setup Doubly Linked List instance
+    dll = DoublyLinkedList(0)
+    dll.pop()
+    
+    # Test prepending to an empty list
+    assert dll.prepend(10) == True  # Prepend 10
+    assert dll.head.value == 10     # Check head value is 10
+    assert dll.tail.value == 10     # Check tail value is also 10
+    assert dll.length == 1          # Check list length is 1
 
+    # Test prepending to a non-empty list
+    assert dll.prepend(20) == True  # Prepend 20
+    assert dll.head.value == 20     # Check new head value is 20
+    assert dll.tail.value == 10     # Tail should remain 10
+    assert dll.head.next.value == 10  # Check head's next points to 10
+    assert dll.tail.prev.value == 20  # Check tail's previous points to 20
+    assert dll.length == 2          # Check list length is 2
+
+    # Test prepending another value
+    assert dll.prepend(30) == True  # Prepend 30
+    assert dll.head.value == 30     # Check new head value is 30
+    assert dll.tail.value == 10     # Tail should still be 10
+    assert dll.head.next.value == 20  # Check head's next points to 20
+    assert dll.length == 3          # Check list length is 3
