@@ -38,26 +38,24 @@ def test_print_list(capsys):
     captured = capsys.readouterr()
     assert captured.out == ""
 
-# Test DoublyLinkedList apend
-def test_append(self):
+# Test DoublyLinkedList append
+def test_append():
     dll = DoublyLinkedList(0)
-    # dll.pop()
+    dll.pop()
 
-    # FIXME: uncomment after pop method added to create empty list.
-    #        change assertions for dll.head.value == 0 to dll.head.value == 1
     # Test appending to an empty list
-    # dll.append(1)
-    # assert dll.head.value == 1  # Head should be the first node
-    # assert dll.tail.value == 1  # Tail should also be the first node
-    # assert dll.head.next is None  # Head next should be None
-    # assert dll.head.prev is None  # Head prev should be None
-    # assert dll.tail.next is None  # Tail next should be None
-    # assert dll.tail.prev is None  # Tail prev should be None
-    # assert dll.length == 1  # Length should be 1
+    dll.append(1)
+    assert dll.head.value == 1  # Head should be the first node
+    assert dll.tail.value == 1  # Tail should also be the first node
+    assert dll.head.next is None  # Head next should be None
+    assert dll.head.prev is None  # Head prev should be None
+    assert dll.tail.next is None  # Tail next should be None
+    assert dll.tail.prev is None  # Tail prev should be None
+    assert dll.length == 1  # Length should be 1
 
     # Test appending another element
     dll.append(2)
-    assert dll.head.value == 0  # Head remains the first node
+    assert dll.head.value == 1  # Head remains the first node
     assert dll.tail.value == 2  # Tail should be the new node
     assert dll.head.next == dll.tail  # Head's next should point to the new node
     assert dll.tail.prev == dll.head  # Tail's prev should point to the old head
@@ -66,10 +64,44 @@ def test_append(self):
 
     # Test appending a third element
     dll.append(3)
-    assert dll.head.value == 0  # Head remains the same
+    assert dll.head.value == 1  # Head remains the same
     assert dll.tail.value == 3  # Tail should be the latest node
     assert dll.head.next.value == 2  # Head's next should still be the second node
     assert dll.tail.prev.value == 2  # Tail's prev should be the second node
     assert dll.length == 3  # Length should be 3
+
+def test_append_and_pop():
+    # Initialize empty doubly linked list
+    dll = DoublyLinkedList(10)
+
+    # Test append method
+    dll.append(20)
+    dll.append(30)
+
+    # Check if values were added correctly
+    assert dll.head.value == 10  # First element
+    assert dll.tail.value == 30  # Last element
+    assert dll.length == 3  # Length check
+
+    # Test pop method
+    popped_node = dll.pop()
+    assert popped_node.value == 30  # Check value of popped node
+    assert dll.tail.value == 20  # Tail should now be 20
+    assert dll.length == 2  # Length should decrease by 1
+
+    popped_node = dll.pop()
+    assert popped_node.value == 20  # Check value of popped node
+    assert dll.tail.value == 10  # Tail should now be 10
+    assert dll.length == 1  # Length should decrease by 1
+
+    popped_node = dll.pop()
+    assert popped_node.value == 10  # Check value of popped node
+    assert dll.head is None  # List should now be empty
+    assert dll.tail is None  # Tail should be None
+    assert dll.length == 0  # Length should be zero
+
+    # Test popping from an empty list
+    popped_node = dll.pop()
+    assert popped_node is None  # Should return None on empty list
 
 
